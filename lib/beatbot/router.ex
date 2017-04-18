@@ -15,7 +15,7 @@ defmodule Beatbot.Router do
 
   post "/" do
     if conn.assigns[:token_valid] do
-      resp = %SlackResp{text: Beat.beat()} |> Poison.encode!()
+      resp = %SlackResp{text: "@" <> Beat.beat()} |> Poison.encode!()
       put_resp_content_type(conn, "application/json")
       |> send_resp(200, resp)
     else
