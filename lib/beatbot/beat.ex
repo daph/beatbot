@@ -1,14 +1,15 @@
 defmodule Beatbot.Beat do
   def beat() do
-    beats =
-      DateTime.utc_now()
-      |> (&((&1.second + (&1.minute * 60) + (((&1.hour + 1) * 3600))) / 86.4)).()
-      |> Float.round(3)
+    DateTime.utc_now()
+    |> (&((&1.second + (&1.minute * 60) + (((&1.hour + 1) * 3600))) / 86.4)).()
+    |> wrap()
+  end
 
-    if beats >= 1000.000 do
-      "0" <> (Float.round((beats - 1000.000), 3) |> Float.to_string())
+  defp wrap(beats) do
+    if beats >= 1000.0 do
+      Float.round((beats - 1000.000), 3)
     else
-      beats |> Float.to_string()
+      Float.round(beats, 3)
     end
   end
 end

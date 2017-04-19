@@ -11,7 +11,7 @@ defmodule Beatbot.TokenPlug do
       |> Application.get_application
       |> Application.get_env(:slack_token)
 
-    %{"token" => in_token} = conn.params
+    in_token = Map.get(conn.params, "token", "")
     assign(conn, :token_valid, (in_token == token))
   end
 end
